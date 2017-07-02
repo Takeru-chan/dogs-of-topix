@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><meta charset="utf-8"><body>
-<form action="" method="post">予算：<input type="text" name="budget" size="8" value=""/>万円</form>
+<form action="" method="post">予算：<input type="text" name="budget" size="8" value=""/>万円<input type="submit" value="計算する" /></form>
 <?php
 $budget=$_POST["budget"]*1000;
 $code = array("2914", "4502", "7201", "7203", "7751", "8031", "8316", "8411", "8766", "9437");
@@ -16,7 +16,7 @@ $number = (int) (0.5+($budget/$price[$i]));
 $cost = $number*$price[$i];
 $unit = (int) ($number/100);
 $commission = 0;
-$unit_price = $unit*$price[$i];
+$unit_price = 100*$unit*$price[$i];
 if ($unit_price > 1000000) {
   $commission = (int) (0.5+($unit_price*0.001));
 } elseif ($unit_price > 500000) {
@@ -59,8 +59,7 @@ $total_cost = $total_unit_price+$total_commission;
 $return = (int) ($total_unit_price*0.0878);
 ?>
 <p style="text-align:right;">※株価は2017年6月30日の終値です。</p>
-<p>総取得費用は<?php echo number_format($total_cost); ?>円、
+<p>予算<?php echo number_format($budget*10); ?>円に対し総取得費用は<?php echo number_format($total_cost); ?>円、
 うち手数料は<?php echo number_format($total_commission); ?>円。
 リターンを8.78%と想定すると、額面で<?php echo number_format($return); ?>円となります。</p>
-<p>※手数料はマネックス証券の取引毎手数料コース、パソコンの成行注文およびワン株取引のものです。</p>
 </body></html>
