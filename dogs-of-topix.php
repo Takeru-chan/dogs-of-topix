@@ -3,10 +3,18 @@
 <form action="" method="post">予算：<input type="text" name="budget" size="8" value=""/>万円<input type="submit" value="計算する" /></form>
 <?php
 $budget=$_POST["budget"]*1000;
-$code = array("2914", "4502", "7201", "7203", "7751", "8031", "8316", "8411", "8766", "9437");
-$issue = array("日本たばこ産業", "武田薬品工業", "日産自動車", "トヨタ自動車", "キヤノン", "三井物産", "三井住友フィナンシャルグループ", "みずほフィナンシャルグループ", "東京海上ホールディングス", "NTTドコモ");
-$rate = array("3.3%", "3.7%", "4.1%", "2.9%", "4.6%", "3.1%", "3.4%", "3.6%", "2.8%", "3.0%");
-$price =array("3947", "5709", "1118", "5893", "3816", "1605.5", "4379", "205.4", "4651", "2652");
+$line = @file(__DIR__ . '/stock.list', FILE_IGNORE_NEW_LINES);
+foreach ($line as $row) {
+  if ($row === [null]) continue;
+}
+$code = explode(",",$line[0]);
+$issue = explode(",",$line[1]);
+$rate = explode(",",$line[2]);
+$line = @file(__DIR__ . '/price.list', FILE_IGNORE_NEW_LINES);
+foreach ($line as $row) {
+  if ($row === [null]) continue;
+}
+$price = explode(",",$line[1]);
 ?>
 <table>
 <tr><th>証券コード</th><th>銘柄</th><th>配当利回り</th><th>株価</th><th>株数</th><th>約定金額</th><th>手数料</th></tr>
@@ -58,7 +66,7 @@ $total_commission += $commission;
 $total_cost = $total_unit_price+$total_commission;
 $return = (int) ($total_unit_price*0.0878);
 ?>
-<p style="text-align:right;">※株価は2017年6月30日の終値です。</p>
+<p style="text-align:right;">※株価は<?php echo $line[0]; ?>の終値です。</p>
 <p>予算<?php echo number_format($budget*10); ?>円に対し総取得費用は<?php echo number_format($total_cost); ?>円、
 うち手数料は<?php echo number_format($total_commission); ?>円。
 リターンを8.78%と想定すると、額面で<?php echo number_format($return); ?>円となります。</p>
