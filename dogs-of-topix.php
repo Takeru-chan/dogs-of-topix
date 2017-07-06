@@ -1,19 +1,13 @@
 <!doctype html>
 <html lang="ja"><meta charset="utf-8"><body>
-<form action="" method="post">予算：<input type="text" name="budget" size="8" value=""/>万円<input type="submit" value="計算する" /></form>
+<form action="" method="post">予算：<input type="number" name="budget" placeholder="整数値を入力してください" value=""/>万円<input type="submit" value="計算する" /></form>
 <?php
 $budget=$_POST["budget"]*1000;
 $line = @file(__DIR__ . '/stock.list', FILE_IGNORE_NEW_LINES);
-foreach ($line as $row) {
-  if ($row === [null]) continue;
-}
 $code = explode(",",$line[0]);
 $issue = explode(",",$line[1]);
 $rate = explode(",",$line[2]);
 $line = @file(__DIR__ . '/price.list', FILE_IGNORE_NEW_LINES);
-foreach ($line as $row) {
-  if ($row === [null]) continue;
-}
 $price = explode(",",$line[1]);
 ?>
 <table>
