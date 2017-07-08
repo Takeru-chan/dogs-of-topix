@@ -3,6 +3,8 @@
 ダウの犬戦略をTOPIXに適用してみました。
 phpで書いています。  
 
+[TOPIX版ダウの犬自動計算シート（株価更新版）](https://www.junk-works.science/automatic-caluclation-dogs-of-the-dow-by-php-2/#sheet)
+
 ## Usage｜使い方
 
 入力フォームに金額を入れると、TOPIX Core30の配当利回り上位10銘柄について１株単位で均等分散投資できるように計算します。  
